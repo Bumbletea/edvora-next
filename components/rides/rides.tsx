@@ -204,8 +204,8 @@ const Rides: React.FC<{
         })
         .filter((x) => {
           if (currentTab == 0) return true;
-          if (currentTab == 1) return new Date(x) > new Date();
-          if (currentTab == 2) return new Date() > new Date(x);
+          if (currentTab == 1) return new Date(x.date) > new Date();
+          if (currentTab == 2) return new Date() > new Date(x.date);
         })
         .map((x, index) => (
           <RideCard key={index} ride={x} />
