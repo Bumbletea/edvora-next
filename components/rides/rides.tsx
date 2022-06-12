@@ -12,7 +12,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import RideCard from "../ridecard/ridecard";
 import { IRide } from "../utils/types";
 import FilterListIcon from "@mui/icons-material/FilterList";
-const TabItem: React.FC<{ children: string }> = ({ children }) => {
+const TabItem: React.FC<{ children: string[] | string }> = ({ children }) => {
   return (
     <p
       style={{
@@ -87,11 +87,11 @@ const Rides: React.FC<{
             <Tab disableRipple label={<TabItem>Nearest rides </TabItem>} />
             <Tab
               disableRipple
-              label={<TabItem>Upcoming rides ({rides_count.upcoming})</TabItem>}
+              label={<TabItem>Upcoming rides ({rides_count.upcoming.toString()})</TabItem>}
             />
             <Tab
               disableRipple
-              label={<TabItem>Past rides ({rides_count.past})</TabItem>}
+              label={<TabItem>Past rides ({rides_count.past.toString()})</TabItem>}
             />
           </Tabs>
         </div>
@@ -204,8 +204,8 @@ const Rides: React.FC<{
         })
         .filter((x) => {
           if (currentTab == 0) return true;
-          if (currentTab == 1) return date > new Date();
-          if (currentTab == 2) return new Date() > date;
+          if (currentTab == 1) return new Date(x) > new Date();
+          if (currentTab == 2) return new Date() > new Date(x);
         })
         .map((x, index) => (
           <RideCard key={index} ride={x} />
